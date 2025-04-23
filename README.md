@@ -7,7 +7,9 @@ date: 2021-01-20 11:13:20
 >
 > [尚硅谷React](https://www.bilibili.com/video/BV1wy4y1D7JT?p=43&t=5)
 
-# React简介
+
+# 第一章 React 入门
+## 1.1 React 简介
 
 **react是什么？**
 
@@ -25,9 +27,8 @@ React用于构建用户界面的JS库。是一个将数据渲染为HTML视图的
 >
 > [npm](https://blog.csdn.net/qq_25502269/article/details/79346545)
 
-# React入门
 
-## React 基础案例
+## 1.2 React 的基本使用
 
 1.先倒入三个包：
 
@@ -70,7 +71,32 @@ babel.min.js
 
 ![渲染结果](./react/1611196030416.png)
 
-## JSX基础语法
+
+#### 1.1.2 两种创建虚拟DOM的方式
+
+**1.使用JSX创建虚拟DOM**
+
+```jsx
+ const VDOM = (
+            <h1 id = {MyId.toLocaleUpperCase()}>
+                <span className = "sss" style = {{fontSize:'50px'}}>sss</span>
+            </h1>
+        )
+```
+
+这个在上面的案例中已经演示过了 ，下面看看另外一种创建虚拟DOM的方式
+
+**2.使用JS创建虚拟DOM**
+
+```js
+// 1.创建虚拟DOM[在这使用了js的语法]React.createElement(标签,标签属性,内容)
+const VDOM = React.createElement('h1',{id:"title"},"nihao")
+```
+
+使用JS和JSX都可以创建虚拟DOM，但是可以看出JS创建虚拟DOM比较繁琐，尤其是标签如果很多的情况下，所以还是比较推荐使用JSX来创建。
+
+
+## 1.3 JSX基础语法
 
 1.定义虚拟DOM，不能使用“”
 
@@ -134,30 +160,8 @@ babel.min.js
 </html>
 ```
 
-## 两种创建虚拟DOM的方式
-
-**1.使用JSX创建虚拟DOM**
-
-```jsx
- const VDOM = (
-            <h1 id = {MyId.toLocaleUpperCase()}>
-                <span className = "sss" style = {{fontSize:'50px'}}>sss</span>
-            </h1>
-        )
-```
-
-这个在上面的案例中已经演示过了 ，下面看看另外一种创建虚拟DOM的方式
-
-**2.使用JS创建虚拟DOM**
-
-```js
-// 1.创建虚拟DOM[在这使用了js的语法]React.createElement(标签,标签属性,内容)
-const VDOM = React.createElement('h1',{id:"title"},"nihao")
-```
-
-使用JS和JSX都可以创建虚拟DOM，但是可以看出JS创建虚拟DOM比较繁琐，尤其是标签如果很多的情况下，所以还是比较推荐使用JSX来创建。
-
-# 组件
+# 第二长 React面向组件编程
+## 2.1 基本理解与使用
 
 当应用是以多组件的方式实现，这个应用就是一个组件化的应用
 

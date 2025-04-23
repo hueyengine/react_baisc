@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <!-- 引入react核心库 -->
+        <script type="text/javascript" src="../React-js/react.development.js"></script>
+        <!-- 引入react扩展库react-dom，支持react操作dom -->
+        <script type="text/javascript" src="../React-js/react-dom.development.js"></script>
+        <!-- 引入babel，将jsx转为js -->
+        <script type="text/javascript" src="../React-js/babel.min.js"></script>
+
+        <!-- 浏览器只认识html、css和js，这里使用了babel用来解析jsx语法-->
+        <script type="text/babel">
+            /** 此处type一定要写babel */
+            // 1. 创建虚拟dom
+            const VDOM = <h1>Hello React</h1>;
+            // 2. 渲染虚拟dom到页面，如果有多个渲染同一个容器，后面的会将前面的覆盖掉
+            ReactDOM.render(VDOM, document.getElementById('root'));
+        </script>
+    </body>
+</html>
