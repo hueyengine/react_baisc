@@ -706,7 +706,7 @@ btnOnClick = () =>{
 
 **官方提示我们不要过度的使用 ref，如果发生事件的元素刚好是需要操作的元素，就可以使用事件去替代。**
 
-# React 事件
+## 2.3 React 事件
 
 React 的事件是通过 onXxx 属性指定事件处理函数
 
@@ -734,10 +734,9 @@ saveName = (event) =>{
 
 先来说说受控组件：
 
-使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取
-值的表单输入元素就叫做“受控组件”。
+使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
 
-```react
+```javascript
 saveName = (event) =>{
     this.setState({name:event.target.value});
 }
@@ -768,7 +767,7 @@ render() {
 
 如下：下面并没有使用 state 来控制属性，使用的是事件来控制表单的属性值。
 
-```react
+```javascript
 class Login extends React.Component{
 
     login = (event) =>{
@@ -788,7 +787,7 @@ class Login extends React.Component{
 }
 ```
 
-**高级函数**
+## 2.4 高级函数
 
 1.如果函数的参数是函数
 
@@ -800,7 +799,7 @@ class Login extends React.Component{
 
 如下，我们将上面的案例简化，创建高级函数：
 
-```react
+```javascript
  class Login extends React.Component{
 
         state = {name:"",pwd:""};
