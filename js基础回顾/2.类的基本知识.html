@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>类的基本知识</title>
+</head>
+<body>
+    <script type="text/javascript">
+        class Person {
+            constructor(name, age) {
+                // 构造器里的 this 指向类的实例对象
+                this.name = name;
+                this.age = age;
+            }
+
+            speak() {
+                // 通过 Person 示例调用 speak 时，speak 中的 this 为 Person 实例
+                console.log(`我叫${this.name}，今年${this.age}`);
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age); // 必须在最开始调用，除非不写构造器方法
+                this.grade = grade;
+            }
+
+            speak() {
+                // 通过 Person 示例调用 speak 时，speak 中的 this 为 Person 实例
+                console.log(`我叫${this.name}，今年${this.age}，我读${this.grade}`);
+            }
+        }
+
+        const p1 = new Person('huey', 25);
+        const p2 = new Person('Anson', 24);
+
+        console.log(p1);
+        console.log(p2);
+        p1.speak();
+        p2.speak();
+
+        const s1 = new Student('小明', 16, '高一');
+        console.log(s1);
+        s1.speak();
+        
+    </script>
+</body>
+</html>

@@ -72,7 +72,7 @@ babel.min.js
 ![渲染结果](./react/1611196030416.png)
 
 
-#### 1.1.2 两种创建虚拟DOM的方式
+#### 1.2.1 两种创建虚拟DOM的方式
 
 **1.使用JSX创建虚拟DOM**
 
@@ -160,7 +160,13 @@ const VDOM = React.createElement('h1',{id:"title"},"nihao")
 </html>
 ```
 
-# 第二长 React面向组件编程
+## 1.4 模块化与组件化
+
+向外提供特定功能的js程序，一般就是一个js文件，我们称之为模块。当应用是以多组件的方式实现，这个应用就是一个组件化的应用。
+
+用来实现局部功能效果的代码和资源的集合称为组件。当应用是以多组件的方式实现，这个应用是一个组件化的应用。
+
+# 第二章 React 面向组件编程
 ## 2.1 基本理解与使用
 
 当应用是以多组件的方式实现，这个应用就是一个组件化的应用
@@ -171,7 +177,7 @@ const VDOM = React.createElement('h1',{id:"title"},"nihao")
 >
 > 传递的参数，不能在组件中改动
 
-## 函数式组件
+### 2.1.1 函数式组件
 
 ```react
 //1.先创建函数，函数可以有参数，也可以没有，但是必须要有返回值 返回一个虚拟DOM
@@ -191,7 +197,7 @@ ReactDOM.Render(<Welcom name = "ss" />,document.getElementById("div"));
 3. `Welcome` 组件将 `Hello, Sara` 元素作为返回值。
 4. React DOM 将 DOM 高效地更新为 `Hello, Sara`。
 
-## Class组件
+### 2.1.2 Class组件
 
 ```react
 //必须继承React.Component
@@ -213,7 +219,7 @@ ReactDOM.Render(<Welcom name = "ss" />,document.getElementById("div"));
 
 ​    3.将render返回的虚拟DOM转化为真实的DOM,随后呈现在页面中
 
-## 组件案例
+### 2.1.3 组件案例
 
 下面，我们通过一个案例更好的理解组件：【只关注与核心代码】
 
@@ -249,11 +255,9 @@ ReactDOM.Render(<Welcom name = "ss" />,document.getElementById("div"));
 
 ```
 
+## 2.2 组件实例的三大属性
 
-
-# 组件实例的三大属性
-
-## state
+### 2.2.1 state
 
 我们都说React是一个状态机，体现是什么地方呢，就是体现在state上，通过与用户的交互，实现不同的状态，然后去渲染UI,这样就让用户的数据和界面保持一致了。state是组件的私有属性。
 
@@ -267,7 +271,7 @@ state是组件对象最重要的属性，值是对象（可以包含多个key-va
 
 核心代码如下：
 
-```react
+```html
 <body>
     <!-- 准备好容器 -->
     <div id="test">
@@ -452,6 +456,13 @@ dem = () =>{
 上述两种方式是等价的，分别通过[箭头函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)和 [`Function.prototype.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind) 来实现。
 
 在这两种情况下，React 的事件对象 `e` 会被作为第二个参数传递。如果通过箭头函数的方式，事件对象必须显式的进行传递，而通过 `bind` 的方式，事件对象以及更多的参数将会被隐式的进行传递。
+
+#### state 总结
+- 组件中 render 方法中的 this 为组件实例对象，因为这个方法一般由 React 实例化后的实例去调用。
+- 组件中自定义方法中的 this 为 undefined，因为自定义方法一般由使用 React 框架的人调用，而不是实例对象调用。如何将 this 指向实例对象呢？
+    a. 强制绑定 this：通过函数对象的 bind()
+    b. 箭头函数
+- 状态数据，不能直接修改或更新
 
 ## Props
 
