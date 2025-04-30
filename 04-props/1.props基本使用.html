@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="test1"></div>
+        <div id="test2"></div>
+        <div id="test3"></div>
+    </body>
+    <!-- 引入依赖 ,引入的时候，必须就按照这个步骤-->
+    <script src="../React-js/react.development.js" type="text/javascript"></script>
+    <script src="../React-js/react-dom.development.js" type="text/javascript"></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Person extends React.Component {
+            render() {
+                // render 里的 this 指向的是当前组件实例对象
+                const { name, age, sex } = this.props;
+                return (
+                    <ul>
+                        <li>姓名：{name}</li>
+                        <li>年龄：{age}</li>
+                        <li>性别：{sex}</li>
+                    </ul>
+                );
+            }
+        }
+        ReactDOM.render(<Person name="jerry" age="19" sex="男" />, document.getElementById('test1'));
+        ReactDOM.render(<Person name="tom" age="19" sex="女" />, document.getElementById('test2'));
+        ReactDOM.render(<Person name="huey" age="19" sex="女" />, document.getElementById('test3'));
+    </script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div1"></div>
+        <div id="div2"></div>
+    </body>
+    <!-- 引入依赖 ,引入的时候，必须就按照这个步骤-->
+    <script src="../React-js/react.development.js" type="text/javascript"></script>
+    <script src="../React-js/react-dom.development.js" type="text/javascript"></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <!--引入对于组件标签的限制-->
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        function Person(props) {
+            // props是只读的
+            const { name, age, sex } = props;
+            return (
+                <ul>
+                    <li>{name}</li>
+                    <li>{age}</li>
+                    <li>{sex}</li>
+                </ul>
+            );
+        }
+
+        // 函数式组件对 props 进行限制的方式如下
+        Person.propTypes = {
+            name: PropTypes.string.isRequired,
+            sex: PropTypes.string,
+            age: PropTypes.number,
+            speak: PropTypes.func,
+        };
+
+        // 指定默认标签属性值
+        Person.defaultProps = {
+            sex: '不男不女',
+            age: 18,
+        };
+
+        ReactDOM.render(<Person name="huey" age={18} />, document.getElementById('div1'));
+    </script>
+</html>

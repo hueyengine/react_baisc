@@ -464,13 +464,13 @@ dem = () =>{
     b. 箭头函数
 - 状态数据，不能直接修改或更新
 
-## Props
+### 2.2.2 Props
 
 Props主要用来传递数据，比如组件之间进行传值
 
 基本使用：
 
-```react
+```html
 <body>
     <div id = "div">
 
@@ -497,7 +497,7 @@ Props主要用来传递数据，比如组件之间进行传值
 
 如果传递的数据是一个对象，可以更加简便的使用
 
-```react
+```html
 <script type="text/babel">
     class Person extends React.Component{
         render(){
@@ -556,7 +556,7 @@ react对此提供了相应的解决方法：
 - propTypes:类型检查，还可以限制不能为空
 - defaultProps：默认值
 
-```react
+```html
 <script type="text/babel">
 
     
@@ -616,7 +616,7 @@ function Person(props){
     }
 ```
 
-## Refs
+## 2.2.3 Refs
 
  Refs 提供了一种方式，允许我们访问 DOM 节点或在 render 方法中创建的 React 元素。 
 
