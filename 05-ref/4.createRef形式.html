@@ -23,32 +23,26 @@
 <script type="text/babel">
 
     class Dom extends React.Component{
-
-        state = {isHot:true};
-
+        // React.createRef 调用后可以返回一个容器，该容器可以存储被 ref 标识的节点
+        // 但是这个容器是专门专用的，所以每一个ref都需要创建这个
+        MyRef = React.createRef();
+        MyRef1 = React.createRef();
+        
         btnOnClick = () =>{
-            alert(this.dian.value);
+            //创建之后，将自身节点，传入current中
+            console.log(this.MyRef.current.value);
+            //alert(this.refs.dian.value);
         }
         inputBlur = () =>{
-            alert(this.shiqu.value);
-        }
-        btnOnClick2 = () =>{
-            this.setState({isHot:!this.state.isHot});
-        }
-        isRef = (self) =>{
-            console.log(self);
-            this.dian = self;
-            console.log("sss")
+            console.log(this);
+            //lert(this.refs.shiqu   .value);
         }
         render(){
-            //回调形式的ref 在ref中执行回调函数，将自身作为参数传递给回调函数
             return (
                 <div>
-                {/*<input ref={self =>{ this.dian = self;console.log(self)}} type="text" placeholder="点击弹出" />&nbsp;*/}
-                <input ref={this.isRef} type="text" placeholder="点击弹出" />&nbsp;
+                    <input ref={this.MyRef} type="text" placeholder="点击弹出" />&nbsp;
                     <button onClick = {this.btnOnClick}>点击</button>&nbsp;
-                    <button onClick = {this.btnOnClick2}>点击</button>&nbsp;
-                    <input ref={self => this.shiqu = self} onBlur={this.inputBlur} type="text" placeholder="失去焦点弹出弹出" />
+                    <input ref={this.MyRef1} onBlur={this.inputBlur} type="text" placeholder="失去焦点弹出弹出" />
                 </div>
             )
         }

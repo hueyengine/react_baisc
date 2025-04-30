@@ -6,9 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div id = "div">
-
-    </div>
+    <div id = "div"></div>
 
 </body>
 <!-- 引入依赖 ,引入的时候，必须就按照这个步骤-->
@@ -24,18 +22,18 @@
 
     class Dom extends React.Component{
 
-        btnOnClick = () =>{
-            alert(this.refs.dian.value);
+        handleBtnOnClick = () =>{
+            alert(this.refs.input1.value);
         }
-        inputBlur = () =>{
-            alert(this.refs.shiqu   .value);
+        handleInputBlur = () =>{
+            alert(this.refs.input2.value);
         }
         render(){
             return (
                 <div>
-                    <input ref="dian" type="text" placeholder="点击弹出" />&nbsp;
-                    <button onClick = {this.btnOnClick}>点击</button>&nbsp;
-                    <input ref="shiqu" onBlur={this.inputBlur} type="text" placeholder="失去焦点弹出弹出" />
+                    <input ref="input1" type="text" placeholder="点击弹出" />&nbsp;
+                    <button onClick = {this.handleBtnOnClick}>点击</button>&nbsp;
+                    <input ref="input2" onBlur={this.handleInputBlur} type="text" placeholder="失去焦点弹出弹出" />
                 </div>
             )
         }
