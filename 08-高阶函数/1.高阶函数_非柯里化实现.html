@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+    <!-- 引入依赖 ,引入的时候，必须就按照这个步骤-->
+    <script src="../React-js/react.development.js" type="text/javascript"></script>
+    <script src="../React-js/react-dom.development.js" type="text/javascript"></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <!--引入对于组件标签的限制-->
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Login extends React.Component {
+            state = { username: '', password: '' };
+
+            saveFormData = (dataType, event) => {
+                this.setState({ [dataType]: event.target.value });
+            };
+
+            handleSubmit = (event) => {
+                event.preventDefault(); //阻止表单提交
+                console.log(this.state.username);
+                console.log(this.state.password);
+                alert(`你输入的用户名是：${this.state.username}，密码是：${this.state.password}`);
+            };
+
+            render() {
+                return (
+                    <form action="http://www.baidu.com" onSubmit={this.handleSubmit}>
+                        用户名：
+                        <input onChange={(event) => this.saveFormData('username', event)} type="text" name="username" />
+                        密码
+                        <input
+                            onChange={(event) => this.saveFormData('password', event)}
+                            type="password"
+                            name="password"
+                        />
+                        <button>登录</button>
+                    </form>
+                );
+            }
+        }
+
+        ReactDOM.render(<Login />, document.getElementById('div'));
+    </script>
+</html>
