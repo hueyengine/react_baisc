@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+// 页面性能分析文件（需要 web-vitals 库的支持）
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(

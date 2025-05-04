@@ -1079,7 +1079,7 @@ this.state.num.map((n,index)=>{
 
 在一个组件中，我们先创建了两个对象，通过循环的方式放入< li>标签中，此时 key 使用的是 index。
 
-```react
+```javascript
 person:[
     {id:1,name:"张三",age:18},
     {id:2,name:"李四",age:19}
@@ -1098,7 +1098,7 @@ this.state.person.map((preson,index)=>{
 
 我们通过修改 State 来控制对象的添加。
 
-```react
+```javascript
 <button onClick={this.addObject}>点击增加对象</button>
 addObject = () =>{
     let {person} = this.state;
@@ -1164,7 +1164,7 @@ Diff 算法其实就是 react 生成的新虚拟 DOM 和以前的旧虚拟 DOM �
 -   如果旧的虚拟 DOM 中没有找到了与新虚拟 DOM 相同的 key:
     -   根据数据创建新的真实的 DOM,随后渲染到页面上
 
-# React 脚手架
+# 第三章 React 脚手架
 
 react 提供了一个用于创建 react 项目的脚手架库：create-react-app
 
@@ -1202,7 +1202,7 @@ npm start //启动这个项目
 
 这里面最主要的还是这个 Index.html 文件：
 
-```react
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -1283,7 +1283,7 @@ ReactDOM.render(<App />,document.getElementById("root"))
 
 我们在顶一个 Hello 组件：
 
-```react
+```javascript
 import React,{Componet} from 'react'
 
 export default class Hello extends Componet{
@@ -1297,7 +1297,7 @@ export default class Hello extends Componet{
 
 在 App 组件中，进行使用
 
-```react
+```javascript
 class App extends Component{
     render(){
         return (

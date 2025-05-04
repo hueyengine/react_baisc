@@ -1,3 +1,10 @@
-.title{
+.title {
     background-color: red;
 }
+
+/**
+    * 这里使用 .module.css 作为文件后缀名，是为了实现样式的模块化
+    * 以避免不同组件中相同的类名所带来的样式冲突，例如 Welcome 和 Hello 组件中都使用了 title 这个类名
+    * 但是在 Welcome 组件中使用的 title 是蓝色背景，而在 Hello 组件中使用的 title 是红色背景
+    * 这样就会导致 Hello 组件中的 title 样式被覆盖
+    */
