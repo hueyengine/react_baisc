@@ -688,7 +688,9 @@ React 其实已经给我们提供了一个相应的 API，他会自动的将该 
 会将 DOM 元素赋值给实例对象的名称为容器名称的属性的 current【这个 current 是固定的】
 
 ```javascript
-{/*容器名称 = React.createRef()*/}
+{
+    /*容器名称 = React.createRef()*/
+}
 MyRef = React.createRef();
 MyRef1 = React.createRef();
 ```
@@ -734,7 +736,8 @@ saveName = (event) =>{
 
 先来说说受控组件：
 
-使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
+使 React 的 state 成为“唯一数据源”。渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取
+值的表单输入元素就叫做“受控组件”。
 
 ```javascript
 saveName = (event) =>{
@@ -768,26 +771,29 @@ render() {
 如下：下面并没有使用 state 来控制属性，使用的是事件来控制表单的属性值。
 
 ```javascript
-class Login extends React.Component{
-
-    login = (event) =>{
+class Login extends React.Component {
+    login = (event) => {
         event.preventDefault(); //阻止表单提交
-            console.log(this.name.value);
-            console.log(this.pwd.value);
-        }
-        render() {
-            return (
-                <form action="http://www.baidu.com" onSubmit={this.login}>
-                用户名：<input ref = {self => this.name =self } type = "text" name ="username"/>
-                密码：<input ref = {self => this.pwd =self } type = "password" name ="password"/>
+        console.log(this.name.value);
+        console.log(this.pwd.value);
+    };
+    render() {
+        return (
+            <form action="http://www.baidu.com" onSubmit={this.login}>
+                用户名：
+                <input ref={(self) => (this.name = self)} type="text" name="username" />
+                密码：
+                <input ref={(self) => (this.pwd = self)} type="password" name="password" />
                 <button>登录</button>
-                </form>
-            )
+            </form>
+        );
     }
 }
 ```
 
 ## 2.4 高级函数
+
+满足下面两个条件中的任意一个，即是高阶函数。
 
 1.如果函数的参数是函数
 
@@ -800,34 +806,33 @@ class Login extends React.Component{
 如下，我们将上面的案例简化，创建高级函数：
 
 ```javascript
- class Login extends React.Component{
+class Login extends React.Component {
+    state = { name: '', pwd: '' };
 
-        state = {name:"",pwd:""};
+    //返回一个函数
+    saveType = (type) => {
+        return (event) => {
+            this.setState({ [type]: event.target.value });
+        };
+    };
 
-		//返回一个函数
-        saveType = (type) =>{
-            return (event) => {
-                this.setState({[type]:event.target.value});
-            }
-        }
-
-        //因为事件中必须是一个函数，所以返回的也是一个函数，这样就符合规范了
-        render() {
-            return (
-                <form>
-      				<input onChange = {this.saveType('name')} type = "text"/>
-                    <button>登录</button>
-                </form>
-            )
-        }
+    //因为事件中必须是一个函数，所以返回的也是一个函数，这样就符合规范了
+    render() {
+        return (
+            <form>
+                <input onChange={this.saveType('name')} type="text" />
+                <button>登录</button>
+            </form>
+        );
     }
+}
 
-    ReactDOM.render(<Login />,document.getElementById("div"));
+ReactDOM.render(<Login />, document.getElementById('div'));
 ```
 
-# 生命周期
+## 2.5 生命周期
 
-## （旧）
+### 2.5.1（旧）
 
 组件从创建到死亡，会经过一些特定的阶段
 
@@ -841,77 +846,75 @@ class Login extends React.Component{
 
 我们通过一个案例更详细的了解这个生命周期：
 
-```react
- class A extends React.Component{
+```javascript
+class A extends React.Component {
+    constructor(props) {
+        console.log('A --- constructor');
+        super(props);
+        this.state = { num: 1 };
+    }
 
-        constructor(props){
-            console.log("A --- constructor")
-            super(props);
-            this.state = {num:1}
-        }
+    add = () => {
+        let { num } = this.state;
+        this.setState({ num: num + 1 });
+        //强制更新
+        //this.forceUpdate();
+    };
 
-        add = () => {
-            let {num} = this.state;
-            this.setState({num:num+1});
-            //强制更新
-            //this.forceUpdate();
-        }
+    render() {
+        console.log('A --- render');
+        return (
+            <div>
+                <h1>这个是第{this.state.num}个</h1>
+                <B name={this.state.num} />
+                <button onClick={this.add}>点击加一</button>
+            </div>
+        );
+    }
 
-       render(){
-           console.log("A --- render");
-            return (
-                <div>
-                    <h1>这个是第{this.state.num}个</h1>
-                    <B name = {this.state.num}/>
-                    <button onClick = {this.add}>点击加一</button>
-                </div>
-            )
-       }
+    //在render之前执行
+    componentWillMount() {
+        console.log('A --- componentWillMount');
+    }
 
-       //在render之前执行
-       componentWillMount(){
-            console.log("A --- componentWillMount");
-       }
+    //在render之后执行
+    componentDidMount() {
+        console.log('A --- componenetDidMount');
+    }
 
-       //在render之后执行
-       componentDidMount(){
-        console.log("A --- componenetDidMount");
-       }
+    //更新操作 setState之后执行，判断是否可以更新（true可以，false不可以）
+    shouldComponentUpdate() {
+        console.log('A --- shouldComponentUpdate');
+        return true;
+    }
+    // 组件将要更新之前
+    componentWillUpdate() {
+        console.log('A --- componentWillUpdate');
+    }
+    //组件更新之后，该函数可以接受相应的参数
+    componentDidUpdate() {
+        console.log('A --- componentDidUpdate');
+    }
 
-       //更新操作 setState之后执行，判断是否可以更新（true可以，false不可以）
-       shouldComponentUpdate(){
-            console.log("A --- shouldComponentUpdate");
-            return true;
-       }
-       // 组件将要更新之前
-       componentWillUpdate(){
-            console.log("A --- componentWillUpdate");
-       }
-       //组件更新之后，该函数可以接受相应的参数
-       componentDidUpdate(){
-            console.log("A --- componentDidUpdate");
-       }
-
-       //卸载组件之后
-       componentWillUnmonut(){
-            console.log("A --- componentWillUnmonut");
-       }
-
-   }
-   class B extends React.Component{
-       render(){
-           return(
-                <div>
-                    <h1>这个是B组件,传递过来的是：{this.props.name}</h1>
-                </div>
-           )
-       }
-       //父组件进行了更新，子组件先执行这个【注意，第一次传递数据的时候，并不执行】
-       componentWillReceiveProps(){
-        console.log("A --- componentWillReceiveProps");
-       }
-   }
-    ReactDOM.render(<A   />,document.getElementById("div"));
+    //卸载组件之后
+    componentWillUnmonut() {
+        console.log('A --- componentWillUnmonut');
+    }
+}
+class B extends React.Component {
+    render() {
+        return (
+            <div>
+                <h1>这个是B组件,传递过来的是：{this.props.name}</h1>
+            </div>
+        );
+    }
+    //父组件进行了更新，子组件先执行这个【注意，第一次传递数据的时候，并不执行】
+    componentWillReceiveProps() {
+        console.log('A --- componentWillReceiveProps');
+    }
+}
+ReactDOM.render(<A />, document.getElementById('div'));
 ```
 
 我们在控制台看一下：
@@ -924,7 +927,7 @@ class Login extends React.Component{
 
 ![更新state](./react/1611568250881.png)
 
-## （新）
+### 2.5.2 （新）
 
 在最新的 react 版本中，有些生命周期钩子被抛弃了，在官网中是这样说的：
 
@@ -990,7 +993,7 @@ class Login extends React.Component{
 我们可以使用 state 状态，改变新闻后面的值，但是为了同时显示这些内容，我们应该为 state 的属性定义一个数组。并在创建组件之
 后开启一个定时器，不断的进行更新 state。更新渲染组件
 
-```react
+```javascript
  class New extends React.Component{
 
         state = {num:[]};
@@ -1036,7 +1039,22 @@ componentDidUpdate(preProps,preState,height){
 
 这样就实现了这个功能。
 
-# Diff 算法
+#### 总结
+1. 初始化阶段：由 ReactDOM.render()触发——初次渲染
+    - constructor()
+    - getDerivedStateFromProps()
+    - render()
+    - componentDidMount()
+2. 更新阶段：由组件内部 this.setState() 或父组件重新 render 触发
+    - getDerivedStateFromProps()
+    - shouldComponentUpdate()
+    - render()
+    - getSnapshotBeforeUpadte()
+    - componentDidUpdate()
+3. 卸载组件：由 ReactDOM.unmountComponentAtNode()触发
+    - componentWillUnmount()
+
+## 2.6 Diff 算法
 
 提到这个算法，就必须说一下关于 Key 的事情了。
 
