@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="div"></div>
+    </body>
+
+    <!-- 引入依赖 ,引入的时候，必须就按照这个步骤-->
+    <script src="../React-js/react.development.js" type="text/javascript"></script>
+    <script src="../React-js/react-dom.development.js" type="text/javascript"></script>
+
+    <script src="../React-js/babel.min.js"></script>
+
+    <!--引入对于组件标签的限制-->
+    <script src="../React-js/prop-types.js"></script>
+
+    <script type="text/babel">
+        /* 
+            经典面试题：
+                1）react/vue中的key有什么作用？（key 的内部原理是什么？）
+                2）为什么遍历列表时，key 最好不要用 index？
+            1. 虚拟 DOM 中 key 的作用
+                1）简单的说：key 是虚拟 DOM 对象的标识，在更新显示时 key 起着极其重要的作用。
+                2）详细地说：当状态中的数据发生变化时，react 会根据【新数据】生成【新的虚拟 DOM】，
+                    随后 react 会将【新的虚拟 DOM】和【旧的虚拟 DOM】进行对比，比较规则如下：
+                        a. 旧虚拟 DOM 中找到了与新虚拟 DOM 相同的 key：
+                          （1）若虚拟 DOM 中内容没变，直接使用之前的真实 DOM
+                          （2）若虚拟 DOM 中内容发生了变化，则生成新的真实 DOM，替换掉旧的真实 DOM
+                        b. 旧虚拟 DOM 中没有找到与新虚拟 DOM 相同的 key：
+                          （1）根据数据创建新的真实 DOM，随后渲染道页面
+            2. 用 index 作为 key 可能会引发的问题
+                1）若对数据进行：逆序添加、逆序删除等破坏顺序操作，则产生没有必要的真实 DOM 更新——页面效果没有问题，但是效果低
+                2）若结构中还包含输入类的 DOM，则会产生错误 DOM 更新，即页面有问题。只有真实的、渲染到页面的 DOM 才有值，虚拟 DOM 是没有值的。因此，在使用 index 作为索引值时，输入框里的输入值会串位。
+                3）注意：如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，那么使用 index 是没有问题的。
+            3. 开发中如何选择 key ？
+
+            ————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+            慢动作回放——使用 index 索引值作为 key
+                初始数据：
+                    { id: 1, name: '张三', age: 18 },
+                    { id: 2, name: '李四', age: 19 },
+                初始虚拟 DOM
+                    <li key=0>张三---18<input type="text" /></li>;
+                    <li key=1>李四---19<input type="text" /></li>;
+
+                更新后的数据
+                    { id: 1, name: '张三', age: 18 },
+                    { id: 2, name: '李四', age: 19 },
+                    { id: 3, name: '王五', age: 20 },
+                更新数据后的虚拟 DOM
+                    <li key=0>张三---18<input type="text" /></li>;
+                    <li key=1>李四---19<input type="text" /></li>;
+                    <li key=2>王五---20<input type="text" /></li>;
+
+            慢动作回放——使用 index 索引值作为 key
+                初始数据：
+                    { id: 1, name: '张三', age: 18 },
+                    { id: 2, name: '李四', age: 19 },
+                初始虚拟 DOM
+                    <li key=0>张三---18<input type="text" /></li>;
+                    <li key=1>李四---19<input type="text" /></li>;
+
+                更新后的数据
+                    { id: 1, name: '张三', age: 18 },
+                    { id: 2, name: '李四', age: 19 },
+                    { id: 3, name: '王五', age: 20 },
+                更新数据后的虚拟 DOM
+                    <li key=0>张三---18<input type="text" /></li>;
+                    <li key=1>李四---19<input type="text" /></li>;
+                    <li key=2>王五---20<input type="text" /></li>;
+            
+         */
+        class Person extends React.Component {
+            state = {
+                persons: [
+                    { id: 1, name: '张三', age: 18 },
+                    { id: 2, name: '李四', age: 19 },
+                ],
+            };
+
+            addObject = () => {
+                let { persons } = this.state;
+                const p = { id: persons.length + 1, name: '王五', age: 20 };
+                this.setState({ persons: [p, ...persons] });
+            };
+
+            render() {
+                return (
+                    <div>
+                        <button onClick={this.addObject}>点击增加对象</button>
+                        <h3>使用 index（索引值）作为 key</h3>
+                        <ul>
+                            {this.state.persons.map((personObj, index) => {
+                                return (
+                                    <li key={index}>
+                                        {personObj.name}---{personObj.age}
+                                        <input type="text" />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+
+                        <hr />
+                        <h3>使用 id (数据唯一标识)作为 key</h3>
+                        <ul>
+                            {this.state.persons.map((personObj) => {
+                                return (
+                                    <li key={personObj.id}>
+                                        {personObj.name}---{personObj.age}
+                                        <input type="text" />
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<Person />, document.getElementById('div'));
+    </script>
+</html>

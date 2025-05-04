@@ -1065,7 +1065,7 @@ index 作为 key，只要 key 不重复即可。
 
 但是如果你的标签是动态的，是有可能刷新的，就必须显示的指定 key。必须上面案使用 map 进行便利的时候就必须指定 Key:
 
-```react
+```javascript
 this.state.num.map((n,index)=>{
 	return <div className="news" key={index} >新闻{n}</div>
 })
