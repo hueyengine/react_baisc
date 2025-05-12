@@ -1,24 +1,19 @@
 //创建外壳组件APP
-import React,{Component} from 'react'
+import React, { Component } from 'react';
 import Header from './header/header';
-import List from './list/list'
+import List from './list/list';
 
-class App extends Component{
-    
-   
-
-    
-    render(){
+class App extends Component {
+    render() {
         //通过 ...将状态中的全部赋值过去
-        return ( 
+        return (
             <div className="container">
                 <Header />
-                
-                <List  />
-            </div>    
-            
-        )
+
+                <List />
+            </div>
+        );
     }
 }
 
-export default App  
+export default App;
