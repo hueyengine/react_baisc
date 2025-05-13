@@ -1,36 +1,34 @@
 //创建外壳组件APP
-import React,{Component} from 'react'
-import Header from './header/header';
-import List from './list/list'
+import React, { Component } from 'react';
+import Search from './Search';
+import List from './List';
 
-class App extends Component{
-    
+class App extends Component {
     state = {
-        Git:[],
-        isFrist:true,
-        isLoad:false,
-        isError:''
+        users: [],
+        isFrist: true,
+        isLoading: false,
+        isError: '',
+    };
+
+    // saveUsers = (stateObj) => {
+    //     this.setState(stateObj);
+    // };
+
+    updateAppState = (stateObj) => {
+        this.setState(stateObj);
     }
 
-    // gitHub = (value) =>{
-    //     this.setState({Git:value}) 
-    // }
-
-    updateAppState = (stateObj) =>{
-        this.setState(stateObj) 
-    }
-    
-    render(){
+    render() {
         //通过 ...将状态中的全部赋值过去
-        return ( 
+        return (
             <div className="container">
-                <Header updateAppState = {this.updateAppState} />
-                
+                <Search updateAppState={this.updateAppState} />
+
                 <List {...this.state} />
-            </div>    
-            
-        )
+            </div>
+        );
     }
 }
 
-export default App  
+export default App;

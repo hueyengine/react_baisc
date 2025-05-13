@@ -994,32 +994,33 @@ ReactDOM.render(<A />, document.getElementById('div'));
 后开启一个定时器，不断的进行更新 state。更新渲染组件
 
 ```javascript
- class New extends React.Component{
+class New extends React.Component {
+    state = { num: [] };
 
-        state = {num:[]};
+    //在组件创建之后,开启一个定时任务
+    componentDidMount() {
+        setInterval(() => {
+            let { num } = this.state;
+            const news = num.length + 1;
+            this.setState({ num: [news, ...num] });
+        }, 2000);
+    }
 
-        //在组件创建之后,开启一个定时任务
-        componentDidMount(){
-            setInterval(()=>{
-                let {num} = this.state;
-                const news = (num.length+1);
-                this.setState({num:[news,...num]});
-            },2000);
-        }
-
-        render(){
-            return (
-
-                <div ref = "list" className = "list">{
-                    this.state.num.map((n,index)=>{
-                    return <div className="news" key={index} >新闻{n}</div>
-                    })
-                }</div>
-            )
-        }
-  }
-  ReactDOM.render(<New />,document.getElementById("div"));
-
+    render() {
+        return (
+            <div ref="list" className="list">
+                {this.state.num.map((n, index) => {
+                    return (
+                        <div className="news" key={index}>
+                            新闻{n}
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    }
+}
+ReactDOM.render(<New />, document.getElementById('div'));
 ```
 
 2.接下来就是控制滚动条了
@@ -1040,6 +1041,7 @@ componentDidUpdate(preProps,preState,height){
 这样就实现了这个功能。
 
 #### 总结
+
 1. 初始化阶段：由 ReactDOM.render()触发——初次渲染
     - constructor()
     - getDerivedStateFromProps()
@@ -1066,9 +1068,13 @@ index 作为 key，只要 key 不重复即可。
 但是如果你的标签是动态的，是有可能刷新的，就必须显示的指定 key。必须上面案使用 map 进行便利的时候就必须指定 Key:
 
 ```javascript
-this.state.num.map((n,index)=>{
-	return <div className="news" key={index} >新闻{n}</div>
-})
+this.state.num.map((n, index) => {
+    return (
+        <div className="news" key={index}>
+            新闻{n}
+        </div>
+    );
+});
 ```
 
 这个地方虽然显示的指定了 key，但是**官网并不推荐使用 Index 作为 Key 去使用**；
@@ -1080,14 +1086,14 @@ this.state.num.map((n,index)=>{
 在一个组件中，我们先创建了两个对象，通过循环的方式放入< li>标签中，此时 key 使用的是 index。
 
 ```javascript
-person:[
-    {id:1,name:"张三",age:18},
-    {id:2,name:"李四",age:19}
-]
+person: [
+    { id: 1, name: '张三', age: 18 },
+    { id: 2, name: '李四', age: 19 },
+];
 
-this.state.person.map((preson,index)=>{
-  return  <li key = {index}>{preson.name}</li>
-})
+this.state.person.map((preson, index) => {
+    return <li key={index}>{preson.name}</li>;
+});
 ```
 
 如下图展现在页面中：
@@ -1099,12 +1105,12 @@ this.state.person.map((preson,index)=>{
 我们通过修改 State 来控制对象的添加。
 
 ```javascript
-<button onClick={this.addObject}>点击增加对象</button>
-addObject = () =>{
-    let {person} = this.state;
-    const p = {id:(person.length+1),name:"王五",age:20};
-    this.setState({person:[p,...person]});
-}
+<button onClick={this.addObject}>点击增加对象</button>;
+addObject = () => {
+    let { person } = this.state;
+    const p = { id: person.length + 1, name: '王五', age: 20 };
+    this.setState({ person: [p, ...person] });
+};
 ```
 
 如下动图所示：
@@ -1207,32 +1213,29 @@ npm start //启动这个项目
 ```html
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <!--%PUBLIC_URL%表示public文件夹的路径-->
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <!--用于开启理想视口，用于移动端页面的适配-->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--用于配置浏览器地址栏的颜色（仅支持安卓手机浏览器）-->
-    <meta name="theme-color" content="#000000" />
-    <!--描述网页信息的-->
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <!--用于指定网页添加到手机主屏幕后的图标（仅仅支持ios）-->
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <head>
+        <meta charset="utf-8" />
+        <!--%PUBLIC_URL%表示public文件夹的路径-->
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <!--用于开启理想视口，用于移动端页面的适配-->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!--用于配置浏览器地址栏的颜色（仅支持安卓手机浏览器）-->
+        <meta name="theme-color" content="#000000" />
+        <!--描述网页信息的-->
+        <meta name="description" content="Web site created using create-react-app" />
+        <!--用于指定网页添加到手机主屏幕后的图标（仅仅支持ios）-->
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
 
-    <!--应用加壳时候的配置文件 -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <!--应用加壳时候的配置文件 -->
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <title>React App</title>
-  </head>
-  <body>
-    <!-- 浏览器不支持JS的运行的时候展现 -->
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+        <title>React App</title>
+    </head>
+    <body>
+        <!-- 浏览器不支持JS的运行的时候展现 -->
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+    </body>
 </html>
 ```
 
@@ -1286,13 +1289,11 @@ ReactDOM.render(<App />,document.getElementById("root"))
 我们在顶一个 Hello 组件：
 
 ```javascript
-import React,{Componet} from 'react'
+import React, { Componet } from 'react';
 
-export default class Hello extends Componet{
+export default class Hello extends Componet {
     render() {
-        return (
-            <h1>Hello</h1>
-        )
+        return <h1>Hello</h1>;
     }
 }
 ```
@@ -1300,13 +1301,13 @@ export default class Hello extends Componet{
 在 App 组件中，进行使用
 
 ```javascript
-class App extends Component{
-    render(){
+class App extends Component {
+    render() {
         return (
             <div>
                 <Hello />
             </div>
-        )
+        );
     }
 }
 ```
@@ -1339,7 +1340,7 @@ export default class Hello extends Component{
 }
 ```
 
-## 3.2 TodoList案例
+## 3.2 TodoList 案例
 
 1.拆分组件:拆分界面，抽取组件
 
@@ -1439,7 +1440,7 @@ React 本身只关注与页面，并不包含发送 ajax 请求的代码，所�
 1. 优点：可以配置多个代理，可以灵活的控制请求是否走代理。
 2. 缺点：配置繁琐，前端请求资源时必须加前缀。
 
-# 兄弟之间进行通信
+## 4.3 兄弟组件之间进行通信——消息订阅——发布机制
 
 这就要借助消息订阅和发布机制。
 
