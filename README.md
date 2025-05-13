@@ -1420,10 +1420,10 @@ React 本身只关注与页面，并不包含发送 ajax 请求的代码，所�
                 target: 'http://localhost:5000', //配置转发目标地址(能返回数据的服务器地址)
                 changeOrigin: true, //控制服务器接收到的请求头中host字段的值
                 /*
-          	changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
-          	changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:3000
-          	changeOrigin默认值为false，但我们一般将changeOrigin值设为true
-          */
+          	        changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
+          	        changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:3000
+          	        changeOrigin默认值为false，但我们一般将changeOrigin值设为true
+                */
                 pathRewrite: { '^/api1': '' }, //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
             }),
             proxy('/api2', {
@@ -1450,17 +1450,17 @@ React 本身只关注与页面，并不包含发送 ajax 请求的代码，所�
 这就有点类似于看报纸，甲想要知道每天都发生什么事情，于是订阅了每天日报，乙每天都会发布这个每天日报，因为甲订阅了，于是乙
 就会每天就给甲方推送，甲方从而获取数据。
 
-**在消息订阅和发布中，我们可以使用 PubSubJs 进行通信：**
+** 在消息订阅和发布中，我们可以使用 PubSubJs 进行通信：**
 
 引入 PubSubJs:
 
-```react
+```javascript
 import PubSub from 'pubsub-js'
 ```
 
 订阅消息：
 
-```react
+```javascript
 PubSub.subscribe("getSate",(_,data)=>{
             console.log(data)
         })
@@ -1470,12 +1470,12 @@ PubSub.subscribe("订阅的消息名称",回调函数，第一个参数是消息
 
 发布消息：
 
-```react
+```javascript
 PubSub.publish("getSate",{isFrist:false,isLoad:true})
 PubSub.publish("订阅的消息名称",传递的数据)
 ```
 
-# async 和 await
+## 4.4 async 和 await
 
 **async:**
 
@@ -1498,7 +1498,7 @@ Promise 对象失败了，就必须使用 try..catch 来捕获。如果该表达
 
 举个例子：
 
-```react
+```javascript
  f1 = () =>{
         return new Promise((resolve,reject)=>{
             // resolve(1);
@@ -1517,13 +1517,32 @@ Promise 对象失败了，就必须使用 try..catch 来捕获。如果该表达
     test();
 ```
 
-# fetch
+## 4.5 fetch
 
 以前发送请求，使用 ajax 或者 axios，现在还可以使用 fetch。这个是 window 自带的，和 xhr 是一个级别的。
 
 可以查看这个文章，写的真的不错：
 
 [fetch](http://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
+
+## github 搜索案例相关知识点
+    1. 设计状态时要考虑全面，例如带有网络请求的组件，要考虑请求失败怎么办.
+    2. ES6小知识点：解构赋值 + 重命名
+        let obj = { a: { b: 1 } }
+        const { a } = obj; // 传统解构赋值
+        const { a: { b } } = obj; // 连续解构赋值
+        const { a: { b: value } } = obj; // 连续解构赋值 + 重命名
+    3. 消息订阅与发布机制
+        1. 先订阅，再发布（理解：有一种隔空对话的感觉）
+        2. 适用于任意组件间通信
+        3. 要在组件的 componentWillUnmount 中取消订阅
+    4. fetch 发送请求（关注分离设计思想）
+        try {
+            const response = await fetch(`http://localhost:3000/api1/search/users?q=${keyWord}`);
+            const data = await response.json();
+        } catch (error) {
+            console.error('请求出错了', error);
+        }
 
 # React 路由
 
@@ -1587,7 +1606,7 @@ web【主要适用于前端】,native【主要适用于本地】,anywhere【任�
 
 < App>最外侧包裹了一个< BrowserRouter>或者< HashRouter>
 
-```react
+```html
 <div className="list-group">
     <Link className="list-group-item"  to="/about">About</Link>
     <Link className="list-group-item"  to="/home">Home</Link>
