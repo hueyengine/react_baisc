@@ -1028,7 +1028,7 @@ ReactDOM.render(<New />, document.getElementById('div'));
 我们在组件渲染到 DOM 之前获取组件的高度，然后用组件渲染之后的高度减去之前的高度就是一条新的内容的高度，这样在不断的累加
 到滚动条位置上。
 
-```react
+```javascript
 getSnapshotBeforeUpdate(){
 	return this.refs.list.scrollHeight;
 }
@@ -1253,31 +1253,29 @@ src 文件：
 
 App.js: 【注意：创建好的组件一定要暴露出去】
 
-```react
+```javascript
 //创建外壳组件APP
-import React from 'react'
+import React from 'react';
 
-class App extends React.Component{
-    render(){
-        return (
-            <div>Hello word</div>
-        )
+class App extends React.Component {
+    render() {
+        return <div>Hello word</div>;
     }
 }
 
-export default App
+export default App;
 ```
 
 index.js: 【主要的作用其实就是将 App 这个组件渲染到页面上】
 
-```react
+```javascript
 //引入核心库
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 //引入组件
-import App from './App'
+import App from './App';
 
-ReactDOM.render(<App />,document.getElementById("root"))
+ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
 这样在重新启动应用，就成功了。
@@ -1327,15 +1325,15 @@ class App extends Component {
 
 2.引入并使用的时候改变方式：
 
-```react
-import React,{Component}from 'react'
-import hello from './hello.module.css'  //引入的时候给一个名称
+```javascript
+import React, { Component } from 'react';
+import hello from './hello.module.css'; //引入的时候给一个名称
 
-export default class Hello extends Component{
+export default class Hello extends Component {
     render() {
         return (
-            <h1 className={hello.title}>Hello</h1>   //通过大括号进行调用
-        )
+            <h1 className={hello.title}>Hello</h1> //通过大括号进行调用
+        );
     }
 }
 ```
@@ -1410,7 +1408,7 @@ React 本身只关注与页面，并不包含发送 ajax 请求的代码，所�
 
 2. 编写 setupProxy.js 配置具体代理规则：
 
-    ```js
+    ```javascript
     const proxy = require('http-proxy-middleware');
 
     module.exports = function (app) {
@@ -1455,7 +1453,7 @@ React 本身只关注与页面，并不包含发送 ajax 请求的代码，所�
 引入 PubSubJs:
 
 ```javascript
-import PubSub from 'pubsub-js'
+import PubSub from 'pubsub-js';
 ```
 
 订阅消息：
@@ -1471,8 +1469,8 @@ PubSub.subscribe("订阅的消息名称",回调函数，第一个参数是消息
 发布消息：
 
 ```javascript
-PubSub.publish("getSate",{isFrist:false,isLoad:true})
-PubSub.publish("订阅的消息名称",传递的数据)
+PubSub.publish('getSate', { isFrist: false, isLoad: true });
+PubSub.publish('订阅的消息名称', 传递的数据);
 ```
 
 ## 4.4 async 和 await
@@ -1499,22 +1497,22 @@ Promise 对象失败了，就必须使用 try..catch 来捕获。如果该表达
 举个例子：
 
 ```javascript
- f1 = () =>{
-        return new Promise((resolve,reject)=>{
-            // resolve(1);
-            reject("错误")
-        })
-    }
+f1 = () => {
+    return new Promise((resolve, reject) => {
+        // resolve(1);
+        reject('错误');
+    });
+};
 
-    async function test(){
-        try{
-           const p =  await f1();
-           console.log(p)
-        }catch(error){
-            console.error(error)
-        }
+async function test() {
+    try {
+        const p = await f1();
+        console.log(p);
+    } catch (error) {
+        console.error(error);
     }
-    test();
+}
+test();
 ```
 
 ## 4.5 fetch
@@ -1526,6 +1524,7 @@ Promise 对象失败了，就必须使用 try..catch 来捕获。如果该表达
 [fetch](http://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
 
 ## github 搜索案例相关知识点
+
     1. 设计状态时要考虑全面，例如带有网络请求的组件，要考虑请求失败怎么办.
     2. ES6小知识点：解构赋值 + 重命名
         let obj = { a: { b: 1 } }
@@ -1544,17 +1543,19 @@ Promise 对象失败了，就必须使用 try..catch 来捕获。如果该表达
             console.error('请求出错了', error);
         }
 
-# React 路由
+# 第五章 React 路由
 
-## SPA
+## 5.1 SPA
 
-单页 Web 应用(single page web application，SPA)。整个应用只有一个完整的页面。
+单页 Web 应用(single page web application，SPA)。
+
+整个应用只有一个完整的页面。
 
 点击页面中的链接不会刷新页面，只会做页面的局部更新。
 
 数据都需要通过 ajax 请求获取,并在前端异步展现
 
-## 什么是路由
+## 5.2 什么是路由
 
 一个路由其实就是一个映射关系（k:v）
 
@@ -1586,27 +1587,29 @@ value 是 function，用来处理客户端提交的请求
 
 [History](https://developer.mozilla.org/zh-CN/docs/Web/API/History)
 
-## react-router-dom
+## 5.3 react-router-dom
 
-react 的路由有三类：
+react-router 库有三种实现：
 
-web【主要适用于前端】,native【主要适用于本地】,anywhere【任何地方】
+web【主要适用于前端】，native【主要适用于本地】，anywhere【任何地方】
 
-在这主要使用 web 也就是这个标题 react-router-dom
+在这主要使用 web 也就是这个标题 react-router-dom，它是 react 的一个插件库，专用实现一个 SPA 应用。
 
-**基本的使用：**
+#### 5.3.1 路由的基本的使用
 
-导航中的 a 标签改写成 Link 标签
+1. 明确好界面中的导航去、展示区；
 
-< Link to="/路径" >xxx< /Link>
+2. 导航区中的 a 标签改写成 Link 标签
 
-展示区写 Route 标签进行路径的匹配
+    < Link to="/路径" >xxx< /Link>
 
-< Route path = '/路径' component={组件名称}>
+3. 展示区写 Route 标签进行路径的匹配
 
-< App>最外侧包裹了一个< BrowserRouter>或者< HashRouter>
+    < Route path = '/路径' component={组件名称}>
 
-```html
+4. < App>最外侧包裹了一个< BrowserRouter>或者< HashRouter>
+
+```jsx
 <div className="list-group">
     <Link className="list-group-item"  to="/about">About</Link>
     <Link className="list-group-item"  to="/home">Home</Link>
@@ -1618,7 +1621,7 @@ web【主要适用于前端】,native【主要适用于本地】,anywhere【任�
     <Route path="/home"component={Home}/>
 </div>
 
-index.js:
+// index.js:
 ReactDOM.render(
     <BrowserRouter>
         <App />
@@ -1628,27 +1631,24 @@ ReactDOM.render(
 
 那么使用 Link 代替 a 标签之后，在页面上会是什么呢，我们发现其实页面上也是把 link 转化为了 a 标签
 
-**路由组件以及一般组件**
+#### 5.3.2 路由组件以及一般组件
 
 1.写法不一样
 
-一般组件：< Demo>
-
-路由组件：< Route path="/demo" component ={Demo}/>
+    一般组件：< Demo>
+    路由组件：< Route path="/demo" component ={Demo}/>
 
 2.存放的位置一般不同
 
-一般组件：components
-
-路由组件：pages
+    一般组件：components
+    路由组件：pages
 
 3.接收的内容【props】
 
-一般组件：写组件标签的时候传递什么，就能收到什么
+    一般组件：写组件标签的时候传递什么，就能收到什么
+    路由组件：接收到三个固定的属性【history、location、match】
 
-路由组件：接收到三个固定的属性【history,location,match】
-
-```js
+```javascript
 history:
     go: ƒ go(n)
     goBack: ƒ goBack()
@@ -1666,13 +1666,13 @@ match:
     url: "/about"
 ```
 
-**NavLink**
+#### 5.3.3 NavLink 与 封装 NavLink
 
 因为 Link 不能够改变标签体，因此只适合用于一些写死的标签。而如果想要有一些点击的效果，使用 NavLink.
 
 如下代码，就写了 ctiveClassName，当点击的时候就会触发这个 class 的样式
 
-```react
+```jsx
 {/*NavLink在点击的时候就会去找activeClassName="ss"所指定的class的值，如果不添加默认是active
  这是因为Link相当于是把标签写死了，不能去改变什么。*/}
 
@@ -1684,20 +1684,27 @@ match:
 
 因此可以自定义一个 NavLink：
 
-```react
- // 通过{...对象}的形式解析对象，相当于将对象中的属性全部展开
- //<NavLink  to = {this.props.to} children = {this.props.children}/>
-<NavLink className="list-group-item" {...this.props}/>
+```jsx
+// 通过{...对象}的形式解析对象，相当于将对象中的属性全部展开
+//<NavLink  to = {this.props.to} children = {this.props.children}/>
+<NavLink className="list-group-item" {...this.props} />
 ```
 
 ​ 在使用的时候：直接写每个标签中不一样的部分就行，比如路径和名称
 
-```react
-{/*将NavLink进行封装，成为MyNavLink,通过props进行传参数，标签体内容props是特殊的一个属性，叫做children */}
-<MyNavLink to = "/about" >About</MyNavLink>
+```jsx
+{
+    /*将NavLink进行封装，成为MyNavLink,通过props进行传参数，标签体内容props是特殊的一个属性，叫做children */
+}
+<MyNavLink to="/about">About</MyNavLink>;
 ```
 
-## 样式错误
+#### 5.3.4 Switch 的使用
+
+1. 通常情况下，path 和 component 是一一对应关系。
+2. Switch 可以提高路由匹配效率（单一匹配）。
+
+#### 5.3.5 解决多级路径刷新页面样式丢失问题
 
 拿上面的案例来说：
 
@@ -1709,67 +1716,75 @@ match:
 
 ![加载样式路径](./react/1612317786643.png)
 
-但是在写路由的时候，有的时候就会出现多级目录，
+但是在访问多级路由后，如下所示，再刷新页面，这个时候就在刷新页面，就会出现问题：
 
-```react
+```jsx
 <MyNavLink to = "/cyk/about" >About</MyNavLink>
-
 <Route path="/cyk/about"component={About}/>
 ```
 
-这个时候就在刷新页面，就会出现问题：
-
-样式因为路径问题加载失败，此时页面返回 public 下面的 Index.html
+样式因为路径问题加载失败，此时页面返回 public 下面的 index.html
 
 ![加载页面失败](./react/1612317880916.png)
 
 解决这个问题，有三个方法：
 
-1.样式加载使用绝对位置
+1. 样式加载使用绝对位置，public/index.html 中引入样式时不写 ./ 而是写 / （常用）
 
-```react
+```jsx
  <link href="/css/bootstrap.css" rel="stylesheet">
 ```
 
-2.使用 %PUBLIC_URL%
+`./css/bootstrap.css` 的含义是以当前文件路径出发，找到当前目录下的 css 文件下的 bootstrap.css 文件，是一个相对路径。
+`/css/bootstrap.css` 的含义是在当前服务的服务器根路径中找到 css 文件下的 bootstrap.css 文件，是一个绝对路径。
 
-```
+2. 使用 `%PUBLIC_URL%`，public/index.html 中引入样式时不写 ./ 而是写 `%PUBLIC_URL%` （常用）
+
+```jsx
  <link href="%PUBLIC_URL%/css/bootstrap.css" rel="stylesheet">
 ```
 
-3.使用 HashRouter
+`%PUBLIC_URL%` 代表 public 文件夹的绝对路径。
 
-因为 HashRouter 会添加#，默认不会处理#后面的路径，所以也是可以解决的
+3. 使用 HashRouter
 
-## 模糊匹配和精准匹配
+因为 HashRouter 会添加 #，# 后面的内容都默认为前端资源，不会带给服务器，默认不会处理 # 后面的路径。当页面重新刷新时，
+以`<link href="/css/bootstrap.css" rel="stylesheet">`给服务器发送请求默认不会带 # 后面的路径，即请求 bootstrap.css 静态
+资源时不会带 `/cyk/about`.
+
+#### 5.3.6 模糊匹配和精准匹配
+
+1. 默认使用的是模糊匹配（简单记：【输入的路径】必须包含【要匹配的路径】，且顺序要一致。
+2. 开启严格匹配：<Route exact={true} path="/about" component={About} />
+3. 严格匹配不要随便开启，需要再开，有些时候开启会导致无法继续匹配耳机路由。
 
 react 默认是开启模糊匹配的。
 
 比如：
 
-```react
-<MyNavLink to = "/home/a/b" >Home</MyNavLink>
+```jsx
+<MyNavLink to="/home/a/b">Home</MyNavLink>
 ```
 
 此时该标签匹配的路由，分为三个部分 home a b；将会根据这个先后顺序匹配路由。
 
 如下就可以匹配到相应的路由：
 
-```react
-<Route path="/home"component={Home}/>
+```jsx
+<Route path="/home" component={Home} />
 ```
 
 但是如果是下面这个就会失败，也就是说他是根据路径一级一级查询的，可以包含前面那一部分，但并不是只包含部分就可以。
 
-```react
-<Route path="/a" component={Home}/>
+```jsx
+<Route path="/a" component={Home} />
 ```
 
 当然也可以使用这个精确的匹配 exact={true}
 
 如以下：这样就精确的匹配/home，则上面的/home/a/b 就不行了
 
-```react
+```jsx
 <Route exact={true}  path="/home" component={Home}/>
 或者
 <Route exact path="/home" component={Home}/>
@@ -1777,28 +1792,28 @@ react 默认是开启模糊匹配的。
 
 ​
 
-## 初始化路由
+#### 5.3.7 初始化路由——Redirect 的使用
 
-在配置好路由，最开始打开页面的时候，应该是不会匹配到任意一个组件。这个时候页面就显得极其不合适，此时应该默认的匹配到一个
-组件。
+在配置好路由，最开始打开页面的时候，应该是不会匹配到任意一个组件。这个时候页面就显得极其不合适，此时应该默认的匹配到一个组件。
 
 ![空组件](./react/RouterDef.gif)
 
-此时就需要使用 Redirect 进行默认匹配了。如下的代码就是默认匹配/home 路径所到的组件
+此时就需要使用 Redirect 进行默认匹配了。如下的代码就是默认匹配/home 路径所到的组件。一般卸载所有路由注册的最下方，当所有路由都无法匹配时，跳转到 Redirect 指定的路由。
 
-```react
+```jsx
 <Switch>
-    <Route path="/about"component={About}/>
+    <Route path="/about" component={About} />
     {/* exact={true}：开启严格匹配的模式，路径必须一致 */}
-    <Route   path="/home" component={Home}/>
+    <Route path="/home" component={Home} />
     {/* Redirect:如果上面的都没有匹配到，就匹配到这个路径下面 */}
-    <Redirect  to = "/home"/>
+    <Redirect to="/home" />
 </Switch>
 ```
 
 就可以做到如下的效果：
 
-## ![设置默认值](./react/RouterSetDef.gif)嵌套路由
+#### 5.3.8 嵌套路由
+![设置默认值](./react/RouterSetDef.gif)
 
 简单来说就是在一个路由组件中又使用了一个路由，就形成了嵌套路由。
 
@@ -1806,7 +1821,7 @@ react 默认是开启模糊匹配的。
 
 我们在 home 这个路由组件中又添加两个组件：
 
-```react
+```jsx
 APP.jsx:
 <Route   path="/home" component={Home}/>
 Home.jsx:
@@ -1832,8 +1847,28 @@ react 中路由的注册是有顺序的，因此在匹配的时候也是按照�
 
 比如上面的 /home/news 的路由处理过程：
 
-1.因为父组件 home 的路由是先注册的，因此在匹配的时候先去找 home 的路由，也就是根据/home/news 先模糊匹配到/home
+1.因为父组件 home 的路由是先注册的，因此在匹配的时候先去找 home 的路由，也就是根据/home/news 先模糊匹配到/home，Home 组件挂载。
 
 2.在去 Home 组件里面去匹配相应的路由，从而找到了/home/news 进行匹配，因此找到了 News 组件。
 
 但是如果开启精确匹配，就会在第一步的时候卡住，这个时候就走不下去了。**因此不要轻易的使用精确匹配**
+
+1. 注册子路由时要写上父路由的path值
+2. 路由的匹配是按照注册路由的顺序进行的
+
+#### 5.3.9 向路由组件传递参数
+    1. params 参数
+        路由链接（携带参数）：<Link to="/demo/test/tom/18">详情</Link>
+        注册路由（声明接收）：<Route path='/demo/test/:name/:age' component={Test} />
+        接收参数：const { name, age } = this.props.match.params
+    2. search 参数
+        路由链接（携带参数）：<Link to="/demo/test?name=tom&age=18">详情</Link>
+        注册路由（无需声明，正常注册即可）：<Route path='/demo/test' component={Test} />
+        接收参数：const { search } = this.props.location
+        备注：获取到 search 是 urlencoded 编码字符串，需要借助 querystring 解析。
+    3. state 参数
+        路由链接（携带参数）：<Link to={{path: '/demo/test', state: { name: 'tom', age: '18' }}}>详情</Link>
+        注册路由（无需声明，正常注册即可）：<Route path='/demo/test' component={Test} />
+        接收参数：this.props.location.state
+        备注：刷新也可以保留住参数
+    

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Message from './message/message';
-import News from './news/news';
+import Message from './Message/index';
+import News from './News/index';
 import MyNavLink from '../../components/MyNavLink/myNavLink';
 import { Switch, Route, Redirect } from 'react-router-dom';
 export default class home extends Component {
