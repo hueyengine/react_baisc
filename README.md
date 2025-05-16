@@ -1871,4 +1871,15 @@ react 中路由的注册是有顺序的，因此在匹配的时候也是按照�
         注册路由（无需声明，正常注册即可）：<Route path='/demo/test' component={Test} />
         接收参数：this.props.location.state
         备注：刷新也可以保留住参数
-    
+
+#### 5.3.11 BrowerRouter 和 HashRouter
+    1. 底层原理不一样：
+        BrowerRouter 使用的是 H5 的 history API，不兼容 IE9 及以下版本。
+        HashRouter 使用的是 URL 的哈希值。
+    2. path 表现形式不一样
+        BrowserRouter 的路径中没有 #，例如：localhost:3000/demo/test
+        HashRouter 的路径包含 #，例如：localhost:3000/#/demo/test
+    3. 刷新后对路由 state 参数影响
+        （1）BrowserRouter 没有任何影响，因为 state 保存在 history 对象中。
+        （2）HashRouter 刷新后会导致路由 state 参数丢失！！！
+    4. 备注：HashRouter 可以用于解决一些路径错误相关的问题。
