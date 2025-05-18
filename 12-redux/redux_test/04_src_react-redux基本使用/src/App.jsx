@@ -6,8 +6,8 @@ import store from './redux/store';
 function App() {
   return (
     <div className="App">
-
-      <Count />
+      {/* {给容器组件传递 store} */}
+      <Count store={store} />
       <hr />
     </div>
   );

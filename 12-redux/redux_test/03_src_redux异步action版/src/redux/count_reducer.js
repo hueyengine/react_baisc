@@ -7,7 +7,7 @@ import { INCREMENT, DECREMENT } from "./constant";
  */
 const initState = 0; // 初始化状态
 export default function countReducer(preState = initState, action) {
-    // console.log('countReducer', preState, action);
+    console.log('countReducer', preState, action);
     
     if (preState === undefined) {
         preState = 0; // 初始化状态

@@ -1,14 +1,13 @@
-
-import Count from './containers/Count';
+import Count from './components/Count_no_redux';
+import CountRedux from './components/Count_redux';
 import './App.css';
-import store from './redux/store';
 
 function App() {
   return (
     <div className="App">
-
       <Count />
       <hr />
+      <CountRedux />
     </div>
   );
 }
