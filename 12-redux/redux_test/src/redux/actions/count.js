@@ -1,7 +1,7 @@
 /**
  * 该文件专门为 Count 组件生成 action 对象
  */
-import { INCREMENT, DECREMENT } from './constant';
+import { INCREMENT, DECREMENT } from '../constant';
 
 // 同步 actino 函数的返回值为 Object 类型的一般对象，动作由 reducer 处理
 export const createIncrementAction = (data) => ({ type: INCREMENT, data });

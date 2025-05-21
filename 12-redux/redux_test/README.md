@@ -6,7 +6,7 @@
             -count_reducer.js
     （3）store.js
         1）引入 redux 中的 createStore 函数，创建一个 store
-        2）createrStore 调用时要穿入一个为其服务的 reduder
+        2）createrStore 调用时要传入一个为其服务的 reducer
         3）记得暴露 store 对象
     （4）count_reducer.js
         1）reducer 的本质是一个函数，接收：preState、action，返回加工后的状态
