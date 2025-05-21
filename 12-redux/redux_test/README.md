@@ -56,3 +56,20 @@
                 {key: xxxxxxAction} // 映射操作状态的方法
             )(UI组件)
         3）在 UI 组件中通过 this.props.xxxxx 读取和操作状态
+
+# 6. 求和案例_react-redux数据共享版
+    （1）定一个 Person 组件，和 Count 组件通过 redux 共享数据
+    （2）为 Person 组件编写：reducer、action，配置 constant 常量
+    （3）重点：Person 的 reducer 和 Count 的 reducer 要使用 combineReducers 进行合并，合并后的总状态是一个对象！！！
+    （4）交给 store 的是总 reducer，最后注意在组件中取出状态的时候，记得“取到位”。
+
+# 7. redux 的 reducer 必须是一个纯函数
+    （1）纯函数：是一类特别的函数，只要是同样的输入（实参），必定得到同样的输出（返回值）
+    （2）必须遵守以下一些约束
+        1）不得改写参数数据
+        2）不会产生任何副作用，例如网络请求，输入和输出设备
+        3）不能调用 Date.now() 或者 Math.random() 等不纯的方法
+    （3）redux 的 reducer 函数必须是一个纯函数
+
+# 8. redux 开发者工具
+    Redux DevTools
