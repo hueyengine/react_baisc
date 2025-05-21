@@ -73,3 +73,7 @@
 
 # 8. redux 开发者工具
     最新版的 Redux DevTools 浏览器扩展插件不需要和 redux-devtools-extension 第三方库配合使用，直接在浏览器中使用即可。
+
+# 9. 简单的本地启动一台服务器，打包上线
+    使用 Node、Java 搭一台服务器
+    借用 serve 第三方库，快速开启一台服务器，并让指定文件夹作为服务器的根目录。全局安装该库，npm i serve -g、npm run build、serve build（启用该服务器）
