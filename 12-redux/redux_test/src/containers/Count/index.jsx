@@ -57,7 +57,7 @@ class CountUI extends Component {
 
 // 创建并暴露一个 Count 的容器组件
 export default connect(
-    (state) => ({ count: state.count, persons: state.person }), // 映射状态
+    (state) => ({ count: state.count, persons: state.persons }), // 映射状态
     {
         increment: createIncrementAction,
         decrement: createDecrementAction,

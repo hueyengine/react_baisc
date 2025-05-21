@@ -26,7 +26,7 @@ class Person extends Component {
                 <input ref={(c) => (this.ageNode = c)} type="text" placeholder="输入年龄" />
                 <button onClick={this.addPerson}>添加</button>
                 <ul>
-                    {this.props.person.map((p) => {
+                    {this.props.persons.map((p) => {
                         return (
                             <li key={p.id}>
                                 名字：{p.name}---年龄：{p.age}
@@ -40,8 +40,8 @@ class Person extends Component {
 }
 
 export default connect(
-    state => ({ person: state.person, count: state.count }), // 映射状态
+    (state) => ({ persons: state.persons, count: state.count }), // 映射状态
     {
         addPerson: createAddPersonAction,
-    } // 映射操作状态的方法
+    }, // 映射操作状态的方法
 )(Person);
