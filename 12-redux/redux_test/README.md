@@ -72,4 +72,4 @@
     （3）redux 的 reducer 函数必须是一个纯函数
 
 # 8. redux 开发者工具
-    Redux DevTools
+    最新版的 Redux DevTools 浏览器扩展插件不需要和 redux-devtools-extension 第三方库配合使用，直接在浏览器中使用即可。
