@@ -126,5 +126,31 @@ Component 的两个问题：1.只要执行 setState()，即使不改变状态数
 ```
 
 # 八、错误边界
-错误边界（Error boundary）：用来捕获后代组件错误，渲染出备用页面。只能捕获后代组件生命周期产生的错误，不能捕获自己组件产生的错误和其他组件在合成事件、定时器中产生的错误。
+错误边界（Error boundary）：用来捕获后代组件错误，渲染出备用页面。只能捕获后代**组件生命周期产生的错误**，不能捕获自己组件产生的错误和其他组件在合成事件、定时器中产生的错误。
 
+getDerivedStateFromError 配合 componentDidCatch
+
+```jsx
+    // 生命周期函数，一旦后代组件报错，就会触发
+    static getDerivedStateFromError(error) {
+        // 当子组件抛出错误时，更新状态
+        console.log('getDerivedStateFromError:', error);
+        // 在 render 之前处罚，返回新的 state
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        // 统计页面的错误，发送请求送到后台去
+        console.log('componentDidCatch:', error, info);
+        console.log('此处统计错误，反馈给服务器，用于通知编码人员进行 bug 的解决');
+    }
+```
+
+# 九、组件通信方式总结
+[组件间通信方式](./mdImgs/组件间通信方式_2025-06-02_21-16-04.jpg)
+
+# 部署运行访问静态资源文件
+使用 express 框架搭建 node 服务器。
+借助第三方库serve搭建服务器，帮助以指定的文件夹快速开启一台服务器，帮你部署、打开资源。npm i serve -g，执行 serve build.
+
+# React 中的 样式怎么处理的
